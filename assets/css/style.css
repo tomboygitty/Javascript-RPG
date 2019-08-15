@@ -3,6 +3,25 @@ body {
     font-family: 'Lexend Exa', sans-serif;
     background-image: url("../images/background.jpg");
     background-size: 100%;
+    padding-left: 5px;
+
+}
+
+h3 {
+
+    padding-left: 465px;
+
+}
+
+.char-img {
+
+    display: block;
+    max-width: 140px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
@@ -15,14 +34,10 @@ body {
 
 }
 
-.char-img {
-    display: block;
-    max-width: 140px;
-    max-height: 100px;
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
+.player-box {
+
+    height: 150px;
+
 }
 
 .enemy-box {
@@ -34,6 +49,18 @@ body {
 
 }
 
+.defender-box {
+
+    border: solid green;
+    background-color: black;
+    padding: 5px;
+    text-align: center;
+    color: white;
+
+}
+
 #characters {
-    padding-left: 20px;
+
+    padding-left: 15px;
+    
 }

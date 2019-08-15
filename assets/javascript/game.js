@@ -1,74 +1,25 @@
-// Create objects and variables to use
+// Create objects of the characters to use
 
-var ackmena = {
-    image: "assets/images/ackmena.jpg",
-    hp: 180,
-    attack: 30,
-    counter: 22,
-    alive: true,
-    player: false,
-    enemy: false
-}
+var ackmena;
+var biggerluke;
+var crumb;
+var dengar;
+var lumpy;
+var nien;
 
-var biggerluke = {
-    image: "assets/images/biggerluke.jpg",
-    hp: 150,
-    attack: 40,
-    counter: 13,
-    alive: true,
-    player: false,
-    enemy: false
-}
-
-var crumb = {
-    image: "assets/images/crumb.jpg",
-    hp: 100,
-    attack: 12,
-    counter: 8,
-    alive: true,
-    player: false,
-    enemy: false
-}
-
-var dengar = {
-    image: "assets/images/dengar.png",
-    hp: 200,
-    attack: 20,
-    counter: 15,
-    alive: true,
-    player: false,
-    enemy: false
-}
-
-var lumpy = {
-    image: "assets/images/lumpy.jpg",
-    hp: 250,
-    attack: 18,
-    counter: 14,
-    alive: true,
-    player: false,
-    enemy: false
-}
-
-var nien = {
-    image: "assets/images/nien.jpg",
-    hp: 190,
-    attack: 20,
-    counter: 20,
-    alive: true,
-    player: false,
-    enemy: false
-}
-
-// Initialize function, places all characters in boxes w/ green border at top with name, image and HP
+// Initialize function
 function initialize() {
 
-    dengar.hp = 200;
-    crumb.hp = 100;
-    lumpy.hp = 250;
-    biggerluke.hp = 150;
-    nien.hp = 190;
-    ackmena.hp = 180;
+    // Set all initial characteristics of each object
+
+    dengar = {image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: false};
+    crumb = {image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: false};
+    lumpy = {image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: false};
+    biggerluke = {image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: false};
+    nien = {image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: false};
+    ackmena = {image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: false};
+
+    // Place all characters in boxes w/ green border at top with name, image and HP
 
     $("#dengar").html("Dengar<img class='char-img' src='" + dengar.image + "' />" + dengar.hp);
     $("#crumb").html("Salacious Crumb<img class='char-img' src='" + crumb.image + "' />" + crumb.hp);
@@ -80,6 +31,8 @@ function initialize() {
 };
 
 // Select player fighter
+
+    
 
 // Select enemy to attack
 
