@@ -66,8 +66,14 @@ h3 {
 
 }
 
+#player-row {
+
+    padding-left: 15px;
+
+}
+
 #enemies {
 
     padding-left: 15px;
-    
+
 }
