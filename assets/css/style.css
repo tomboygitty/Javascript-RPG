@@ -1,0 +1,39 @@
+body {
+
+    font-family: 'Lexend Exa', sans-serif;
+    background-image: url("../images/background.jpg");
+    background-size: 100%;
+
+}
+
+.char-box {
+
+    border: solid green;
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.char-img {
+    display: block;
+    max-width: 140px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enemy-box {
+
+    border: solid black;
+    background-color: red;
+    padding: 5px;
+    text-align: center;
+
+}
+
+#characters {
+    padding-left: 20px;
+}
