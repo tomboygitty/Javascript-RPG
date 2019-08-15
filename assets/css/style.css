@@ -9,15 +9,15 @@ body {
 
 h3 {
 
-    padding-left: 465px;
+    padding-left: 535px;
 
 }
 
 .char-img {
 
     display: block;
-    max-width: 140px;
-    max-height: 100px;
+    max-width: 170px;
+    max-height: 120px;
     width: auto;
     height: auto;
     margin-left: auto;
@@ -29,14 +29,15 @@ h3 {
 
     border: solid green;
     background-color: white;
-    padding: 5px;
+    padding: 3px 8px 3px 8px;
     text-align: center;
 
 }
 
 .player-box {
 
-    height: 150px;
+    height: 180px;
+    width: auto;
 
 }
 
@@ -60,6 +61,12 @@ h3 {
 }
 
 #characters {
+
+    padding-left: 15px;
+
+}
+
+#enemies {
 
     padding-left: 15px;
     
