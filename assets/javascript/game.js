@@ -6,23 +6,24 @@ var crumb;
 var dengar;
 var lumpy;
 var nien;
+var enemies = [];
 var defender;
 
 // Initialize function
 function initialize() {
 
     // Set all initial characteristics of each object
-    dengar = {name: "Dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: ""};
+    dengar = {name: "Dengar", name2: "dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: "", defending: false};
 
-    crumb = {name: "Salacious Crumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: ""};
+    crumb = {name: "Salacious Crumb", name2: "salaciouscrumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: "", defending: false};
 
-    lumpy = {name: "Lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: ""};
+    lumpy = {name: "Lumpy", name2: "lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: "", defending: false};
 
-    biggerluke = {name: "Bigger Luke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: ""};
+    biggerluke = {name: "Bigger Luke", name2: "biggerluke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: "", defending: false};
 
-    nien = {name: "Nien Nunb", image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: ""};
+    nien = {name: "Nien Nunb", name2: "nien", image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: "", defending: false};
 
-    ackmena = {name: "Ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: ""};
+    ackmena = {name: "Ackmena", name2: "ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: "", defending: false};
 
     defender = false;
 
@@ -53,18 +54,23 @@ function initialize() {
 
         $("#en1").addClass("enemy-box");
         $("#en1").html(en1.name + "<img class='char-img' src='" + en1.image + "' />" + en1.hp);
+        enemies[0] = en1;
 
         $("#en2").addClass("enemy-box");
         $("#en2").html(en2.name + "<img class='char-img' src='" + en2.image + "' />" + en2.hp);
+        enemies[1] = en2;
 
         $("#en3").addClass("enemy-box");
         $("#en3").html(en3.name + "<img class='char-img' src='" + en3.image + "' />" + en3.hp);
+        enemies[2] = en3;
 
         $("#en4").addClass("enemy-box");
         $("#en4").html(en4.name + "<img class='char-img' src='" + en4.image + "' />" + en4.hp);
+        enemies[3] = en4;
 
         $("#en5").addClass("enemy-box");
         $("#en5").html(en5.name + "<img class='char-img' src='" + en5.image + "' />" + en5.hp);
+        enemies[4] = en5;
     };
 
     // Make function to clear out characters row
@@ -132,13 +138,41 @@ function initialize() {
 
     // Make a function to set enemy selected; move the char display from enemies to defender
 
+    // function enemyReturn(str, array) {
+    //     for (var i = 0; i < array.length; i++) {
+    //         if (array[i].name2==str) {
+    //             return i;
+    //         }
+    //         return null;
+    //     }
+    // };
+
     function setDefender(defender, enLoc) {
-        if (defender==false) {
-            $("#" + enLoc).
-        }
+
+        console.log(defender);
+        $("#defender").addClass("defender-box");
+        $("#defender").html(defender.name + "<img class='char-img' src='" + defender.image + "' />" + defender.hp);
+        $("#" + enLoc).html("");
+        $("#" + enLoc).removeClass();
+
     };
 
-    $("en1").on("click", setDefender())
+    
+    $(".en-button").on("click", function() {
+        if (defender==false) {
+            var defend = this.childNodes[0].data.replace(/\s/g, '').toLowerCase();
+            var enLo = this.id;
+            var arrayLoc;
+            for (var i = 0; i < enemies.length; i++) {
+                if (enemies[i].name2==defend) {
+                    arrayLoc = i;
+                }
+            }
+            console.log(arrayLoc);
+            setDefender(enemies[arrayLoc], enLo);
+            defender = true;
+        }
+    });
 
 // Player character attacks
 
