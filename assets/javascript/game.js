@@ -6,26 +6,30 @@ var crumb;
 var dengar;
 var lumpy;
 var nien;
+
+var currentPlayer;
 var enemies = [];
+var defenderArrayLoc;
 var defender;
 
 // Initialize function
 function initialize() {
 
     // Set all initial characteristics of each object
-    dengar = {name: "Dengar", name2: "dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: "", defending: false};
+    dengar = {name: "Dengar", name2: "dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: ""};
 
-    crumb = {name: "Salacious Crumb", name2: "salaciouscrumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: "", defending: false};
+    crumb = {name: "Salacious Crumb", name2: "salaciouscrumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: ""};
 
-    lumpy = {name: "Lumpy", name2: "lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: "", defending: false};
+    lumpy = {name: "Lumpy", name2: "lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: ""};
 
-    biggerluke = {name: "Bigger Luke", name2: "biggerluke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: "", defending: false};
+    biggerluke = {name: "Bigger Luke", name2: "biggerluke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: ""};
 
-    nien = {name: "Nien Nunb", name2: "nien", image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: "", defending: false};
+    nien = {name: "Nien Nunb", name2: "niennunb", image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: ""};
 
-    ackmena = {name: "Ackmena", name2: "ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: "", defending: false};
+    ackmena = {name: "Ackmena", name2: "ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: ""};
 
-    defender = false;
+    defender = 0;
+    enemies = [];
 
     // Place all characters in boxes w/ green border at top with name, image and HP
     $("#dengar").html("Dengar<img class='char-img' src='" + dengar.image + "' />" + dengar.hp);
@@ -34,6 +38,39 @@ function initialize() {
     $("#biggerluke").html("Bigger Luke<img class='char-img' src='" + biggerluke.image + "' />" + biggerluke.hp);
     $("#nien").html("Nien Nunb<img class='char-img' src='" + nien.image + "' />" + nien.hp);
     $("#ackmena").html("Ackmena<img class='char-img' src='" + ackmena.image + "' />" + ackmena.hp);
+    $("#dengar").addClass("char-box");
+    $("#crumb").addClass("char-box");
+    $("#lumpy").addClass("char-box");
+    $("#biggerluke").addClass("char-box");
+    $("#nien").addClass("char-box");
+    $("#ackmena").addClass("char-box");
+
+    // Clear out player slot
+    $("#player").removeClass();
+    $("#player").addClass("player-box");
+    $("#player").html("");
+
+    // Clear out enemy slots
+    $("#en1").removeClass();
+    $("#en1").html("");
+    $("#en2").removeClass();
+    $("#en2").html("");
+    $("#en3").removeClass();
+    $("#en3").html("");
+    $("#en4").removeClass();
+    $("#en4").html("");
+    $("#en5").removeClass();
+    $("#en5").html("");
+
+    // Clear out defender slot
+    $("#defender").removeClass();
+    $("#defender").html("");
+
+    // Clear battle text
+    $("#battle-text").text("");
+
+    // Hide restart button
+    $("#restart").hide();
 };
 
 // Select player fighter
@@ -43,11 +80,12 @@ function initialize() {
 
     function setPlayer(player, en1, en2, en3, en4, en5) {
         player.player = true;
-        en1.enemy = "en1";
-        en2.enemy = "en2";
-        en3.enemy = "en3";
-        en4.enemy = "en4";
-        en5.enemy = "en5";
+        currentPlayer = player;
+        // en1.enemy = "en1";
+        // en2.enemy = "en2";
+        // en3.enemy = "en3";
+        // en4.enemy = "en4";
+        // en5.enemy = "en5";
 
         $("#player").addClass("char-box");
         $("#player").html(player.name + "<img class='char-img' src='" + player.image + "' />" + player.hp);
@@ -138,48 +176,82 @@ function initialize() {
 
     // Make a function to set enemy selected; move the char display from enemies to defender
 
-    // function enemyReturn(str, array) {
-    //     for (var i = 0; i < array.length; i++) {
-    //         if (array[i].name2==str) {
-    //             return i;
-    //         }
-    //         return null;
-    //     }
-    // };
+    function setDefender(defending, enLoc) {
 
-    function setDefender(defender, enLoc) {
-
-        console.log(defender);
+        defender = defending;
         $("#defender").addClass("defender-box");
         $("#defender").html(defender.name + "<img class='char-img' src='" + defender.image + "' />" + defender.hp);
         $("#" + enLoc).html("");
         $("#" + enLoc).removeClass();
 
     };
-
     
+    // When an enemy is selected, transfer the display and info to the defender slot and flag defender as true
     $(".en-button").on("click", function() {
-        if (defender==false) {
+        if (defender==0) {
             var defend = this.childNodes[0].data.replace(/\s/g, '').toLowerCase();
             var enLo = this.id;
-            var arrayLoc;
+            console.log(defend);
             for (var i = 0; i < enemies.length; i++) {
                 if (enemies[i].name2==defend) {
-                    arrayLoc = i;
+                    defenderArrayLoc = i;
                 }
             }
-            console.log(arrayLoc);
-            setDefender(enemies[arrayLoc], enLo);
-            defender = true;
+            console.log(defenderArrayLoc);
+            setDefender(enemies[defenderArrayLoc], enLo);
         }
     });
 
 // Player character attacks
 
-    // If player defeats ALL enemies, YOU WIN, GAME OVER
+    // Make function to clear defender slot
+    function clearDefender() {
+        $("#defender").removeClass();
+        $("#defender").html("");
+        enemies[defenderArrayLoc].splice(defenderArrayLoc, 1);
+        defender = 0;
+    };
 
-// Enemy character counterattacks
+    $("#attack").on("click", function() {
+        if (defender!=0) {
+            // Subtract attack points from defenders HP and update display
+            // Enemy character counterattacks
 
-    // If enemy defeats player, YOU'RE DEFEATED, GAME OVER
+            currentPlayer.hp = currentPlayer.hp - enemies[defenderArrayLoc].counter;
+            enemies[defenderArrayLoc].hp = enemies[defenderArrayLoc].hp - currentPlayer.attack;
+
+            if (currentPlayer.hp <= 0) {
+                // If enemy defeats player, YOU'RE DEFEATED, GAME OVER
+                $("#battle-text").html("You have been defeated. GAME OVER!!!");
+                $("#restart").show();
+
+
+            }
+            else {
+                if (enemies[defenderArrayLoc].hp <= 0) {
+                    clearDefender();
+                    if (enemies.length > 0) {
+                        $("#battle-text").text("You defeated " + enemies[defenderArrayLoc].name + ". You can fight another enemy.");
+                    }
+                    else {
+                        // If player defeats ALL enemies, YOU WIN, GAME OVER
+                        $("#battle-text").text("YOU WON!!! GAME OVER!!!");
+                        $("#restart").show();
+                    }
+                }
+                else {
+                    $("#player").html(currentPlayer.name + "<img class='char-img' src='" + currentPlayer.image + "' />" + currentPlayer.hp);
+                    $("#defender").html(defender.name + "<img class='char-img' src='" + defender.image + "' />" + defender.hp);
+                    $("#battle-text").text("You attacked " + enemies[defenderArrayLoc].name + " for " + currentPlayer.attack + " damage.");
+                }
+            }
+        }
+        else {
+            $("#battle-text").text("No enemy here.");
+        }
+    });
+
+// When Restart button is pressed, re-initialize
+// $("#restart").on("click", initialize()); 
 
 initialize();

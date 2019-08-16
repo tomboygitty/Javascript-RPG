@@ -72,14 +72,20 @@ h3 {
 
 }
 
-#enemies {
+#enemies-row {
 
     padding-left: 15px;
 
 }
 
-#defender {
+#defender-row {
 
     padding-left: 15px;
+
+}
+
+#restart {
+
+    display:none;
 
 }
