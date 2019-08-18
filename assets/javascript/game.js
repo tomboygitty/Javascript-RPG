@@ -6,28 +6,32 @@ var crumb;
 var dengar;
 var lumpy;
 var nien;
+var chars = [];
 
 var currentPlayer;
-var enemies = [];
-var defenderArrayLoc;
 var defender;
+var enemies = [];
+var playerArrayLoc;
+var defenderArrayLoc;
+
 
 // Initialize function
 function initialize() {
 
     // Set all initial characteristics of each object
-    dengar = {name: "Dengar", name2: "dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, counter: 15, alive: true, player: false, enemy: ""};
+    dengar = {name: "Dengar", name2: "dengar", image: "assets/images/dengar.png", hp: 200, attack: 22, attmult: 1, counter: 15, player: false};
 
-    crumb = {name: "Salacious Crumb", name2: "salaciouscrumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, counter: 10, alive: true, player: false, enemy: ""};
+    crumb = {name: "Salacious Crumb", name2: "salaciouscrumb", image: "assets/images/crumb.jpg", hp: 100, attack: 15, attmult: 1, counter: 10, player: false};
 
-    lumpy = {name: "Lumpy", name2: "lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, counter: 14, alive: true, player: false, enemy: ""};
+    lumpy = {name: "Lumpy", name2: "lumpy", image: "assets/images/lumpy.jpg", hp: 250, attack: 18, attmult: 1, counter: 14, player: false};
 
-    biggerluke = {name: "Bigger Luke", name2: "biggerluke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, counter: 13, alive: true, player: false, enemy: ""};
+    biggerluke = {name: "Bigger Luke", name2: "biggerluke", image: "assets/images/biggerluke.jpg", hp: 150, attack: 25, attmult: 1, counter: 13, player: false};
 
-    nien = {name: "Nien Nunb", name2: "niennunb", image: "assets/images/nien.jpg", hp: 190, attack: 20, counter: 20, alive: true, player: false, enemy: ""};
+    nien = {name: "Nien Nunb", name2: "niennunb", image: "assets/images/nien.jpg", hp: 190, attack: 20, attmult: 1, counter: 20, player: false};
 
-    ackmena = {name: "Ackmena", name2: "ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, counter: 22, alive: true, player: false, enemy: ""};
+    ackmena = {name: "Ackmena", name2: "ackmena", image: "assets/images/ackmena.jpg", hp: 130, attack: 40, attmult: 1, counter: 22, player: false};
 
+    chars = [dengar, crumb, lumpy, biggerluke, nien, ackmena];
     defender = 0;
     enemies = [];
 
@@ -81,11 +85,6 @@ function initialize() {
     function setPlayer(player, en1, en2, en3, en4, en5) {
         player.player = true;
         currentPlayer = player;
-        // en1.enemy = "en1";
-        // en2.enemy = "en2";
-        // en3.enemy = "en3";
-        // en4.enemy = "en4";
-        // en5.enemy = "en5";
 
         $("#player").addClass("char-box");
         $("#player").html(player.name + "<img class='char-img' src='" + player.image + "' />" + player.hp);
@@ -133,6 +132,7 @@ function initialize() {
     $("#dengar").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(dengar, crumb, lumpy, biggerluke, nien, ackmena);
+            playerArrayLoc = 0;
             clearChars();
         }
     });
@@ -140,6 +140,7 @@ function initialize() {
     $("#crumb").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(crumb, dengar, lumpy, biggerluke, nien, ackmena);
+            playerArrayLoc = 1;
             clearChars();
         }
     });
@@ -147,6 +148,7 @@ function initialize() {
     $("#lumpy").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(lumpy, dengar, crumb, biggerluke, nien, ackmena);
+            playerArrayLoc = 2;
             clearChars();
         }
     });
@@ -154,6 +156,7 @@ function initialize() {
     $("#biggerluke").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(biggerluke, dengar, crumb, lumpy, nien, ackmena);
+            playerArrayLoc = 3;
             clearChars();
         }
     });
@@ -161,6 +164,7 @@ function initialize() {
     $("#nien").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(nien, dengar, crumb, lumpy, biggerluke, ackmena);
+            playerArrayLoc = 4;
             clearChars();
         }
     });
@@ -168,6 +172,7 @@ function initialize() {
     $("#ackmena").on("click", function() {
         if ((dengar.player==false)&&(crumb.player==false)&&(lumpy.player==false)&&(biggerluke.player==false)&&(nien.player==false)&&(ackmena.player==false)) {
             setPlayer(ackmena, dengar, crumb, lumpy, biggerluke, nien);
+            playerArrayLoc = 5;
             clearChars();
         }
     });
@@ -191,13 +196,11 @@ function initialize() {
         if (defender==0) {
             var defend = this.childNodes[0].data.replace(/\s/g, '').toLowerCase();
             var enLo = this.id;
-            console.log(defend);
             for (var i = 0; i < enemies.length; i++) {
                 if (enemies[i].name2==defend) {
                     defenderArrayLoc = i;
                 }
             }
-            console.log(defenderArrayLoc);
             setDefender(enemies[defenderArrayLoc], enLo);
         }
     });
@@ -206,10 +209,10 @@ function initialize() {
 
     // Make function to clear defender slot
     function clearDefender() {
+        var defend = enemies.indexOf(defender);
         $("#defender").removeClass();
         $("#defender").html("");
-        enemies[defenderArrayLoc].splice(defenderArrayLoc, 1);
-        defender = 0;
+        enemies.splice(defend, 1);
     };
 
     $("#attack").on("click", function() {
@@ -218,7 +221,7 @@ function initialize() {
             // Enemy character counterattacks
 
             currentPlayer.hp = currentPlayer.hp - enemies[defenderArrayLoc].counter;
-            enemies[defenderArrayLoc].hp = enemies[defenderArrayLoc].hp - currentPlayer.attack;
+            enemies[defenderArrayLoc].hp = enemies[defenderArrayLoc].hp - currentPlayer.attack*chars[playerArrayLoc].attmult;
 
             if (currentPlayer.hp <= 0) {
                 // If enemy defeats player, YOU'RE DEFEATED, GAME OVER
@@ -231,7 +234,8 @@ function initialize() {
                 if (enemies[defenderArrayLoc].hp <= 0) {
                     clearDefender();
                     if (enemies.length > 0) {
-                        $("#battle-text").text("You defeated " + enemies[defenderArrayLoc].name + ". You can fight another enemy.");
+                        $("#battle-text").text("You defeated " + defender.name + ". You can fight another enemy.");
+                        defender = 0;
                     }
                     else {
                         // If player defeats ALL enemies, YOU WIN, GAME OVER
@@ -242,7 +246,10 @@ function initialize() {
                 else {
                     $("#player").html(currentPlayer.name + "<img class='char-img' src='" + currentPlayer.image + "' />" + currentPlayer.hp);
                     $("#defender").html(defender.name + "<img class='char-img' src='" + defender.image + "' />" + defender.hp);
-                    $("#battle-text").text("You attacked " + enemies[defenderArrayLoc].name + " for " + currentPlayer.attack + " damage.");
+                    $("#battle-text").html("You attacked " + enemies[defenderArrayLoc].name + " for " + currentPlayer.attack*chars[playerArrayLoc].attmult + " damage.<br>" + defender.name + " attacked you back for " + defender.counter + " damage.");
+
+                    // Every successful hit on the enemy increases your attack power
+                    chars[playerArrayLoc].attmult++;
                 }
             }
         }
@@ -252,6 +259,9 @@ function initialize() {
     });
 
 // When Restart button is pressed, re-initialize
-// $("#restart").on("click", initialize()); 
+    $("#restart").on("click", function() {
+        initialize();
+    });
+
 
 initialize();
