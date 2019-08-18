@@ -225,6 +225,8 @@ function initialize() {
 
             if (currentPlayer.hp <= 0) {
                 // If enemy defeats player, YOU'RE DEFEATED, GAME OVER
+                $("#player").html(currentPlayer.name + "<img class='char-img' src='" + currentPlayer.image + "' />" + currentPlayer.hp);
+                $("#defender").html(defender.name + "<img class='char-img' src='" + defender.image + "' />" + defender.hp);
                 $("#battle-text").html("You have been defeated. GAME OVER!!!");
                 $("#restart").show();
 
